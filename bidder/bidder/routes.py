@@ -34,7 +34,7 @@ def calc_bid(imp_profile: str) -> int:
     return bid
 
 
-@app.route('/new-imp', methods=['POST'])
+@app.route('/imp', methods=['POST'])
 def receive_imp():
     i = request.json
     bidnet_id = i['id']

@@ -8,7 +8,7 @@ def job_1():
     i = Impression()
     print(i)
 
-    response = requests.post(f"{app.config['BIDDER_ADDR']}new-imp",
+    response = requests.post(f"{app.config['BIDDER_ADDR']}imp",
                              json={'id': str(i.id), 'profile': i.profile})
     if response.status_code == requests.codes.ok:
         i_bid = response.json()
