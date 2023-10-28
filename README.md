@@ -40,7 +40,9 @@ flask run
 - Open another terminal window, start bidder (address is set to `localhost:1441`)
 
 ```bash
+. .venv/bin/activate
 cd bidder
+flask db upgrade
 flask run
 ```
 
