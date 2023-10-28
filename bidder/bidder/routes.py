@@ -39,5 +39,6 @@ def receive_imp():
     profile = i['profile']
     bid = calc_bid(profile)
     print(f"Bid {bid} for impression {bidnet_id} with profile {profile}")
-    # db.session.add(Impression(profile=imp_profile, bid=bid))
+    db.session.add(Impression(bidnet_id=bidnet_id, profile=profile, bid=bid))
+    db.session.commit()
     return jsonify({'id': bidnet_id, 'bid': str(bid)})
