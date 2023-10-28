@@ -1,3 +1,5 @@
+from typing import Optional
+
 from flask import request, jsonify
 
 from . import app, db
@@ -42,3 +44,16 @@ def receive_imp():
     db.session.add(Impression(bidnet_id=bidnet_id, profile=profile, bid=bid))
     db.session.commit()
     return jsonify({'id': bidnet_id, 'bid': str(bid)})
+
+
+@app.route('/imp/<bidnet_id>', methods=['PUT'])
+def update_imp(bidnet_id):
+    i = request.json
+    impression: Optional[Impression] = (
+        db.session.execute(db.select(Impression).filter_by(bidnet_id=bidnet_id)).scalar_one_or_none())
+    if impression is not None:
+        impression.is_won = i['is_won']
+        db.session.commit()
+        return '', 200
+    else:
+        return '', 404
