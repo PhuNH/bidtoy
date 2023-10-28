@@ -8,6 +8,7 @@ from . import db
 
 class Impression(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    bidnet_id: Mapped[str] = mapped_column(String, index=True, unique=True)
     profile: Mapped[str] = mapped_column(String, index=True)
     bid: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
     is_won: Mapped[Optional[bool]] = mapped_column(Boolean, nullable=True)
