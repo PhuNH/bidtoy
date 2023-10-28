@@ -8,7 +8,12 @@ from .models import Impression
 
 @app.route('/')
 def index():
-    return 'Welcome to bidder'
+    impressions = (
+        db.session.execute(
+            db.select(Impression).filter_by(is_won=True).order_by(Impression.id))
+        .scalars())
+    impressions = [i.as_dict() for i in impressions]
+    return jsonify(impressions)
 
 
 def calc_bid(imp_profile: str) -> int:
