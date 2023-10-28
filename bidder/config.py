@@ -6,7 +6,10 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 def profile_generator(length=5):
-    profile = ''.join([random.choice(string.ascii_lowercase) for _ in range(length)])
+    profile = [random.choice(string.ascii_lowercase) for _ in range(length)]
+    profile.extend(' ' * (20-length))
+    random.shuffle(profile)
+    profile = ''.join(profile)
     return profile
 
 
