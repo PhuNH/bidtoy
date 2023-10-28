@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 
 from . import app, db
 from .models import Impression
@@ -34,8 +34,9 @@ def calc_bid(imp_profile: str) -> int:
 
 @app.route('/new-imp', methods=['POST'])
 def receive_imp():
-    imp_profile = request.data.decode('ascii')
-    bid = calc_bid(imp_profile)
-    print(f'Bid: {bid}')
+    i = request.json
+    profile = i['profile']
+    bid = calc_bid(profile)
+    print(f"Bid {bid} for impression {i['id']} with profile {profile}")
     # db.session.add(Impression(profile=imp_profile, bid=bid))
-    return str(bid)
+    return jsonify({'id': i['id'], 'bid': str(bid)})

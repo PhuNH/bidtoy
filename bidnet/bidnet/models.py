@@ -1,11 +1,13 @@
 import random
 import string
+import uuid
 from dataclasses import dataclass, field
 from datetime import datetime
 
 
 @dataclass
 class Impression:
+    id: str = field(default_factory=uuid.uuid4)
     profile: str = ''
     created_at: datetime = field(default_factory=datetime.utcnow)
 
